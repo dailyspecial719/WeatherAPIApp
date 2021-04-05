@@ -53,11 +53,15 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btn_city.setOnClickListener(new View.OnClickListener() {
+
+
             @Override
             public void onClick(View v) {
 
-                // Instantiate the RequestQueue.
-                RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
+
+
+
+
                 String url ="https://www.metaweather.com/api/location/search/?query=" + et_dataInput.getText().toString();
 
                 JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
@@ -80,24 +84,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-                  // Request a string response from the provided URL.
-                /*StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                // Display the first 500 characters of the response string.
-                                Toast.makeText(MainActivity.this, response, Toast.LENGTH_SHORT).show();
-                            }
-                        }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(MainActivity.this, "Error Occurred.", Toast.LENGTH_SHORT).show();
-                    }
-                });*/
 
-                  // Add the request to the RequestQueue.
-                queue.add(request);
-                //Toast.makeText(MainActivity.this, "You Clicked me 1", Toast.LENGTH_SHORT).show();
+                MySingleton.getInstance(MainActivity.this).addToRequestQueue(request);
+                
             }
         });
 
