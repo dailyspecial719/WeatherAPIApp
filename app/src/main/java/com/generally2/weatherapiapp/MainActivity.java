@@ -27,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     Button btn_city, btn_getWeatherById, btn_getWeatherByName;
     EditText et_dataInput;
     ListView lv_weatherReport;
+    final WeatherDataService weatherDataService = new WeatherDataService(MainActivity.this);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,34 +61,25 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-
-
-
-                String url ="https://www.metaweather.com/api/location/search/?query=" + et_dataInput.getText().toString();
-
-                JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+                weatherDataService.getCityID(et_dataInput.getText().toString(), new WeatherDataService.VolleyResponseListener() {
                     @Override
-                    public void onResponse(JSONArray response) {
-                        String cityId = "";
-                        try {
-                            JSONObject cityInfo = response.getJSONObject(0);
-                            cityId  = cityInfo.getString("woeid");
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                    public void onError(String message) {
+                        Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
 
-                        Toast.makeText(MainActivity.this, "City Id " + cityId, Toast.LENGTH_SHORT).show();
                     }
-                }, new Response.ErrorListener() {
+
                     @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(MainActivity.this, "Error!", Toast.LENGTH_SHORT).show();
+                    public void onResponse(String cityID) {
+                        Toast.makeText(MainActivity.this, "Returned an ID of :" + cityID, Toast.LENGTH_SHORT).show();
+
                     }
                 });
 
 
-                MySingleton.getInstance(MainActivity.this).addToRequestQueue(request);
-                
+
+
+
+
             }
         });
 
