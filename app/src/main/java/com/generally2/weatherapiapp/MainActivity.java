@@ -44,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
         btn_getWeatherById.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+          weatherDataService.getCityForecastByID("44418");
                 Toast.makeText(MainActivity.this, "You Clicked me 2", Toast.LENGTH_SHORT).show();
             }
         });
@@ -74,11 +76,6 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
-
-
-
-
-
 
             }
         });
