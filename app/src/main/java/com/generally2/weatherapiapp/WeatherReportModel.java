@@ -59,6 +59,9 @@ public class WeatherReportModel {
                 '}';
     }
 
+    public WeatherReportModel() {
+    }
+
     public int getId() {
         return id;
     }

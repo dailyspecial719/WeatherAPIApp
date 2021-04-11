@@ -66,8 +66,14 @@ public class WeatherDataService {
 
    }
 
+    public interface ForeCastByIDResponse{
+        void onError(String message);
 
-    public void getCityForecastByID(String cityID){
+        void onResponse(WeatherReportModel weatherReportModel);
+    }
+
+
+    public void getCityForecastByID(String cityID, ForeCastByIDResponse foreCastByIDResponse){
         List<WeatherReportModel> report = new ArrayList<>();
 
         String url = QUERY_FOR_CITY_WEATHER_BY_ID + cityID;
@@ -76,7 +82,39 @@ public class WeatherDataService {
 
             @Override
             public void onResponse(JSONObject response) {
-                Toast.makeText(context, response.toString(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, response.toString(), Toast.LENGTH_SHORT).show();
+
+                try {
+                    JSONArray consolidated_weather_list = response.getJSONArray("consolidated_weather");
+                    //get first item in the array
+                    WeatherReportModel first_day = new WeatherReportModel();
+
+
+
+
+                    JSONObject first_day_from_API = (JSONObject) consolidated_weather_list.get(0);
+                    first_day.setId(first_day_from_API.getInt("id"));
+                    first_day.setWeather_state_name(first_day_from_API.getString("weather_state_name"));
+                    first_day.setWeather_state_abbr(first_day_from_API.getString("weather_state_abbr"));
+                    first_day.setWind_direction_compass(first_day_from_API.getString("wind_direction_compass"));
+                    first_day.setCrested(first_day_from_API.getString("created"));
+                    first_day.setApplicable_date(first_day_from_API.getString("applicable_date"));
+                    first_day.setMin_temp(first_day_from_API.getLong("min_temp"));
+                    first_day.setMax_temp(first_day_from_API.getLong("max_temp"));
+                    first_day.setThe_temp(first_day_from_API.getLong("the_temp"));
+                    first_day.setWind_speed(first_day_from_API.getLong("wind_speed"));
+                    first_day.setWind_direction(first_day_from_API.getLong("wind_direction"));
+                    first_day.setAir_pressure(first_day_from_API.getLong("air_pressure"));
+                    first_day.setHumidity(first_day_from_API.getInt("humidity"));
+                    first_day.setVisibility(first_day_from_API.getLong("visibility"));
+                    first_day.setPredictability(first_day_from_API.getInt("predictability"));
+
+                    foreCastByIDResponse.onResponse(first_day);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
             }
         }, new Response.ErrorListener() {
             @Override
