@@ -40,11 +40,11 @@ public class WeatherReportModel {
 
     @Override
     public String  toString() {
-        return  weather_state_name +
-                " Date: " + applicable_date +
+        return  " Date: " + applicable_date + " " +
+                weather_state_name +
                 " Low: " + min_temp +
                 " High: " + max_temp +
-                " Temp=" + the_temp;
+                " Current Temp: " + the_temp;
     }
 
     public WeatherReportModel() {
@@ -103,7 +103,7 @@ public class WeatherReportModel {
     }
 
     public void setMin_temp(float min_temp) {
-        this.min_temp = min_temp;
+        this.min_temp = (min_temp * 9/5) + 32;
     }
 
     public float getMax_temp() {
@@ -111,7 +111,7 @@ public class WeatherReportModel {
     }
 
     public void setMax_temp(float max_temp) {
-        this.max_temp = max_temp;
+        this.max_temp = (max_temp * 9/5) + 32;
     }
 
     public float getThe_temp() {
@@ -119,7 +119,7 @@ public class WeatherReportModel {
     }
 
     public void setThe_temp(float the_temp) {
-        this.the_temp = the_temp;
+        this.the_temp = (the_temp * 9/5) + 32;
     }
 
     public float getWind_speed() {
