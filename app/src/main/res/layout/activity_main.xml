@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="City ID"
+        android:background="@drawable/btn_background"
         app:layout_constraintEnd_toStartOf="@+id/btn_getWeatherByCityId"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -20,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Weather by Id"
-        app:layout_constraintEnd_toStartOf="@+id/btn_getWeatherByCityName"
+        android:background="@drawable/btn_background"
         app:layout_constraintStart_toEndOf="@+id/btn_getCityId"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -29,6 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="weather by name"
+        android:background="@drawable/btn_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btn_getWeatherByCityId"
         app:layout_constraintTop_toTopOf="parent" />
